@@ -1,0 +1,1 @@
+Python implementation of the Jenkins one-at-a-time hash and lookup 2 hash.
