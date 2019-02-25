@@ -1,3 +1,6 @@
+import numpy as np
+
+
 def rshift_zero_padded(val, n):
     """Zero-padded right shift"""
     return (val % 0x100000000) >> n
@@ -160,15 +163,15 @@ def lookup2(data: any) -> int:
 
 
 def ooat(key: any) -> int:
-    """Python implementation of Jenkins hash one-at-a-time function"""
+    """Python implementation of Jenkins hash one-at-a-time function via numpy"""
     key_hash = 0
     for c in key:
-        key_hash += ord(c)
-        key_hash += key_hash << 10
-        key_hash ^= rshift_zero_padded(key_hash, 6)
+        key_hash += np.int32(ord(c))
+        key_hash += np.int32(key_hash) << np.int32(10)
+        key_hash = np.int32(key_hash) ^ (np.int32(key_hash) >> np.int32(6))
 
-    key_hash += key_hash << 3
-    key_hash ^= rshift_zero_padded(key_hash, 11)
-    key_hash += key_hash << 15
+    key_hash += key_hash << np.int32(3)
+    key_hash ^= key_hash >> np.int32(11)  # Don't need to cast key_hash to int32 here I guess
+    key_hash += key_hash << np.int32(15)
 
-    return rshift_zero_padded(key_hash, 0)
+    return np.uint32(key_hash) >> np.uint32(0)

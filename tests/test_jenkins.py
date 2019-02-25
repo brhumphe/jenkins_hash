@@ -19,15 +19,12 @@ class TestLookup2(TestCase):
                          0xCF874E3D)
 
     def test_ooat(self):
-        self.assertEqual(jenkins.ooat("foobar"),
-                         0xF952FDE7)
-        self.assertEqual(jenkins.ooat(""),
-                         0)
-        self.assertEqual(jenkins.ooat("hello world"),
-                         0x3E4A5A57)
-        self.assertEqual(jenkins.ooat("           "),
-                         0x9AEAF441)
-        self.assertEqual(jenkins.ooat("1234567890abcdefghijklmnopqstuvwxyz"),
-                         0xB77A0169)
-        self.assertEqual(jenkins.ooat("This is the time for all good men to come to the aid of their country"),
-                         0x768ECFFE)
+        self.assertEqual(2201291178,
+                         jenkins.ooat("Character"),
+                         "Failed to hash 'Character'")
+        self.assertEqual(90817248,
+                         jenkins.ooat('ForceField'),
+                         "Failed to has 'ForceField'")
+        self.assertEqual(254172489,
+                         jenkins.ooat('SimpleSpriteParticleEmitter'),
+                         "Failed to hash 'SimpleSpriteParticleEmitter'")
